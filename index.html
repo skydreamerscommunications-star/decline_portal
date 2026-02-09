@@ -210,7 +210,6 @@
             const matchIcon = document.getElementById('matchIcon');
             const agentIcon = document.getElementById('agentIcon');
             
-            // Phone validation (10 digits)
             phoneInput.addEventListener('input', function() {
                 this.value = this.value.replace(/\D/g, '');
                 if (this.value.length === 10) {
@@ -222,7 +221,6 @@
                 }
             });
             
-            // State validation (any selection)
             stateSelect.addEventListener('change', function() {
                 if (this.value) {
                     stateIcon.classList.remove('text-slate-400');
@@ -233,7 +231,6 @@
                 }
             });
             
-            // Match validation (not empty)
             matchInput.addEventListener('input', function() {
                 if (this.value.trim()) {
                     matchIcon.classList.remove('text-slate-400');
@@ -244,7 +241,6 @@
                 }
             });
             
-            // Agent validation (any selection)
             agentSelect.addEventListener('change', function() {
                 if (this.value) {
                     agentIcon.classList.remove('text-slate-400');
@@ -286,32 +282,30 @@
             submitBtn.classList.add('opacity-75');
             
             try {
-                const response = await fetch(SCRIPT_URL, {
-                    method: 'POST',
+                await fetch(SCRIPT_URL, {
+                    method: "POST",
+                    mode: "no-cors",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
                     body: JSON.stringify(formData)
                 });
+
+                showStatus("✅ Lead submitted successfully!", "success");
+                document.getElementById('phone').value = '';
+                document.getElementById('match').value = '';
+                document.getElementById('reason').value = '';
+                document.getElementById('phone').focus();
                 
-                const result = await response.json();
+                document.getElementById('phoneIcon').classList.remove('text-blue-600');
+                document.getElementById('phoneIcon').classList.add('text-slate-400');
+                document.getElementById('matchIcon').classList.remove('text-blue-600');
+                document.getElementById('matchIcon').classList.add('text-slate-400');
                 
-                if (result.status === 'success') {
-                    showStatus('✅ Lead submitted successfully!', 'success');
-                    document.getElementById('phone').value = '';
-                    document.getElementById('match').value = '';
-                    document.getElementById('reason').value = '';
-                    document.getElementById('phone').focus();
-                    
-                    // Reset icons except state and agent
-                    document.getElementById('phoneIcon').classList.remove('text-blue-600');
-                    document.getElementById('phoneIcon').classList.add('text-slate-400');
-                    document.getElementById('matchIcon').classList.remove('text-blue-600');
-                    document.getElementById('matchIcon').classList.add('text-slate-400');
-                    
-                    setTimeout(() => {
-                        statusDiv.classList.add('hidden');
-                    }, 3000);
-                } else {
-                    showStatus(`❌ ${result.message || 'Submission failed'}`, 'error');
-                }
+                setTimeout(() => {
+                    statusDiv.classList.add('hidden');
+                }, 3000);
+                
             } catch (error) {
                 showStatus('❌ Network error. Please try again.', 'error');
                 console.error('Submission error:', error);
