@@ -5,111 +5,127 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Declined Leads Submission Tool</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Inter Font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
+        body { font-family: 'Inter', sans-serif; }
+        input:focus, select:focus { outline: none; }
     </style>
 </head>
 <body class="bg-slate-50 min-h-screen">
-    <div class="container mx-auto px-4 py-8 max-w-4xl">
-        <!-- Header -->
-        <div class="text-center mb-8">
-            <h1 class="text-2xl font-bold text-slate-800 mb-2">Declined Leads Submission Tool</h1>
-            <p class="text-slate-600">Submit declined leads to Google Sheets</p>
+    <div class="container mx-auto px-4 py-12 max-w-lg">
+        <div class="text-center mb-10">
+            <h1 class="text-3xl font-bold text-slate-800 mb-2">Declined Leads Submission</h1>
+            <p class="text-slate-600">Submit declined leads to tracking system</p>
         </div>
 
-        <!-- Main Form Card -->
-        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 mb-8">
+        <div class="bg-white rounded-2xl shadow-lg border border-slate-200 p-8">
             <form id="declinedForm" class="space-y-6">
-                <!-- Row 1: Phone & State -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Phone Input -->
-                    <div>
-                        <label for="phone" class="block text-sm font-medium text-slate-700 mb-2">
-                            Phone Number *
-                        </label>
+                <!-- Phone Field with Icon -->
+                <div>
+                    <label for="phone" class="block text-sm font-medium text-slate-700 mb-2">
+                        Phone Number *
+                    </label>
+                    <div class="relative">
+                        <div class="absolute left-3 top-3.5">
+                            <i id="phoneIcon" class="fas fa-phone text-slate-400"></i>
+                        </div>
                         <input 
                             type="tel" 
                             id="phone" 
                             name="phone"
                             required
                             placeholder="1234567890"
-                            class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
+                            class="w-full pl-10 pr-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
                         >
-                        <p class="mt-1 text-xs text-slate-500">Numeric only</p>
                     </div>
+                    <p class="mt-1 text-xs text-slate-500">10 digits required</p>
+                </div>
 
-                    <!-- State Dropdown -->
-                    <div>
-                        <label for="state" class="block text-sm font-medium text-slate-700 mb-2">
-                            State *
-                        </label>
+                <!-- State Field with Icon -->
+                <div>
+                    <label for="state" class="block text-sm font-medium text-slate-700 mb-2">
+                        State *
+                    </label>
+                    <div class="relative">
+                        <div class="absolute left-3 top-3.5">
+                            <i id="stateIcon" class="fas fa-map-marker-alt text-slate-400"></i>
+                        </div>
                         <select 
                             id="state" 
                             name="state"
                             required
-                            class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition bg-white"
+                            class="w-full pl-10 pr-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition bg-white appearance-none"
                         >
-                            <option value="" disabled selected>Select a state</option>
-                            <option value="VA">Virginia (VA)</option>
-                            <option value="PA">Pennsylvania (PA)</option>
-                            <option value="GA">Georgia (GA)</option>
-                            <option value="IN">Indiana (IN)</option>
-                            <option value="OH">Ohio (OH)</option>
-                            <option value="IL">Illinois (IL)</option>
-                            <option value="SC">South Carolina (SC)</option>
-                            <option value="MS">Mississippi (MS)</option>
+                            <option value="" disabled selected>Select state</option>
                         </select>
+                        <div class="absolute right-3 top-3.5 pointer-events-none">
+                            <i class="fas fa-chevron-down text-slate-400"></i>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Row 2: DID Match -->
+                <!-- DID Match Field with Icon -->
                 <div>
                     <label for="match" class="block text-sm font-medium text-slate-700 mb-2">
                         DID Match *
                     </label>
-                    <input 
-                        type="text" 
-                        id="match" 
-                        name="match"
-                        required
-                        placeholder="D1 CPL, D2 CPA, etc."
-                        class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
-                    >
+                    <div class="relative">
+                        <div class="absolute left-3 top-3.5">
+                            <i id="matchIcon" class="fas fa-link text-slate-400"></i>
+                        </div>
+                        <input 
+                            type="text" 
+                            id="match" 
+                            name="match"
+                            required
+                            placeholder="D1 CPL, D2 CPA, etc."
+                            class="w-full pl-10 pr-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                        >
+                    </div>
                 </div>
 
-                <!-- Row 3: Drop Reason -->
+                <!-- Reason Field with Icon -->
                 <div>
                     <label for="reason" class="block text-sm font-medium text-slate-700 mb-2">
                         Drop Reason (Optional)
                     </label>
-                    <input 
-                        type="text" 
-                        id="reason" 
-                        name="reason"
-                        placeholder="Pickup Issue, Wrong Number, etc."
-                        class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
-                    >
+                    <div class="relative">
+                        <div class="absolute left-3 top-3.5">
+                            <i id="reasonIcon" class="fas fa-comment-alt text-slate-400"></i>
+                        </div>
+                        <input 
+                            type="text" 
+                            id="reason" 
+                            name="reason"
+                            placeholder="Pickup Issue, Wrong Number, etc."
+                            class="w-full pl-10 pr-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                        >
+                    </div>
                 </div>
 
-                <!-- Row 4: Agent Dropdown -->
+                <!-- Agent Field with Icon -->
                 <div>
                     <label for="agent" class="block text-sm font-medium text-slate-700 mb-2">
                         Agent *
                     </label>
-                    <select 
-                        id="agent" 
-                        name="agent"
-                        required
-                        class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition bg-white"
-                    >
-                        <option value="" disabled selected>Loading agents...</option>
-                    </select>
+                    <div class="relative">
+                        <div class="absolute left-3 top-3.5">
+                            <i id="agentIcon" class="fas fa-user text-slate-400"></i>
+                        </div>
+                        <select 
+                            id="agent" 
+                            name="agent"
+                            required
+                            class="w-full pl-10 pr-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition bg-white appearance-none"
+                        >
+                            <option value="" disabled selected>Loading agents...</option>
+                        </select>
+                        <div class="absolute right-3 top-3.5 pointer-events-none">
+                            <i class="fas fa-chevron-down text-slate-400"></i>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Submit Button -->
@@ -117,56 +133,57 @@
                     <button 
                         type="submit"
                         id="submitBtn"
-                        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-xl transition duration-200 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3.5 px-6 rounded-xl transition duration-200 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                     >
                         Submit Declined Lead
                     </button>
                 </div>
 
                 <!-- Status Message -->
-                <div id="statusMessage" class="text-center hidden"></div>
+                <div id="statusMessage" class="text-center hidden mt-4 p-3 rounded-lg"></div>
             </form>
-        </div>
-
-        <!-- Instructions -->
-        <div class="bg-blue-50 border border-blue-100 rounded-2xl p-5">
-            <h3 class="font-semibold text-blue-800 mb-2">📋 How to Use</h3>
-            <ul class="text-sm text-blue-700 space-y-1">
-                <li>• All fields except "Drop Reason" are required</li>
-                <li>• Phone number should be numeric only</li>
-                <li>• Select the appropriate state from dropdown</li>
-                <li>• Enter the DID match pattern (e.g., "D1 CPL")</li>
-                <li>• Select your name from the Agent dropdown</li>
-                <li>• Form will clear automatically after successful submission</li>
-            </ul>
         </div>
     </div>
 
     <script>
-        // Replace with your Apps Script WebApp URL
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzRBn_7UrtHeciSzckcXOlGzDg4niGKBfd38eH3E0z_PPj4yWM1IWmVo54EHtYMk3Xe/exec';
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyBEM6b42D73gn0RMKnxAdIFDs0jolqu9srh3qtFZLOV1WUoswGirPUBjBMfa2zlNGD/exec";
+        const STATES = [
+            'AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA',
+            'HI','ID','IL','IN','IA','KS','KY','LA','ME','MD',
+            'MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ',
+            'NM','NY','NC','ND','OH','OK','OR','PA','RI','SC',
+            'SD','TN','TX','UT','VT','VA','WA','WV','WI','WY'
+        ];
 
-        // State when agents are loading
-        let isLoadingAgents = true;
-
-        // Fetch agents on page load
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', () => {
+            populateStateDropdown();
             fetchAgents();
+            setupFieldValidation();
         });
 
-        // Fetch agents from Apps Script
+        function populateStateDropdown() {
+            const stateSelect = document.getElementById('state');
+            stateSelect.innerHTML = '<option value="" disabled selected>Select state</option>';
+            
+            STATES.forEach(state => {
+                const option = document.createElement('option');
+                option.value = state;
+                option.textContent = state;
+                stateSelect.appendChild(option);
+            });
+        }
+
         async function fetchAgents() {
             const agentSelect = document.getElementById('agent');
             
             try {
                 const response = await fetch(`${SCRIPT_URL}?action=agents`);
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                
                 const data = await response.json();
                 
                 if (data.agents && data.agents.length > 0) {
-                    // Clear loading option
                     agentSelect.innerHTML = '<option value="" disabled selected>Select an agent</option>';
-                    
-                    // Add agent options
                     data.agents.forEach(agent => {
                         const option = document.createElement('option');
                         option.value = agent;
@@ -174,125 +191,150 @@
                         agentSelect.appendChild(option);
                     });
                 } else {
-                    agentSelect.innerHTML = '<option value="" disabled selected>No agents found</option>';
+                    agentSelect.innerHTML = '<option value="" disabled selected>No agents available</option>';
                 }
             } catch (error) {
-                console.error('Error fetching agents:', error);
+                console.error('Failed to load agents:', error);
                 agentSelect.innerHTML = '<option value="" disabled selected>Failed to load agents</option>';
             }
-            
-            isLoadingAgents = false;
         }
 
-        // Handle form submission
-        document.getElementById('declinedForm').addEventListener('submit', async function(e) {
+        function setupFieldValidation() {
+            const phoneInput = document.getElementById('phone');
+            const stateSelect = document.getElementById('state');
+            const matchInput = document.getElementById('match');
+            const agentSelect = document.getElementById('agent');
+            
+            const phoneIcon = document.getElementById('phoneIcon');
+            const stateIcon = document.getElementById('stateIcon');
+            const matchIcon = document.getElementById('matchIcon');
+            const agentIcon = document.getElementById('agentIcon');
+            
+            // Phone validation (10 digits)
+            phoneInput.addEventListener('input', function() {
+                this.value = this.value.replace(/\D/g, '');
+                if (this.value.length === 10) {
+                    phoneIcon.classList.remove('text-slate-400');
+                    phoneIcon.classList.add('text-blue-600');
+                } else {
+                    phoneIcon.classList.remove('text-blue-600');
+                    phoneIcon.classList.add('text-slate-400');
+                }
+            });
+            
+            // State validation (any selection)
+            stateSelect.addEventListener('change', function() {
+                if (this.value) {
+                    stateIcon.classList.remove('text-slate-400');
+                    stateIcon.classList.add('text-blue-600');
+                } else {
+                    stateIcon.classList.remove('text-blue-600');
+                    stateIcon.classList.add('text-slate-400');
+                }
+            });
+            
+            // Match validation (not empty)
+            matchInput.addEventListener('input', function() {
+                if (this.value.trim()) {
+                    matchIcon.classList.remove('text-slate-400');
+                    matchIcon.classList.add('text-blue-600');
+                } else {
+                    matchIcon.classList.remove('text-blue-600');
+                    matchIcon.classList.add('text-slate-400');
+                }
+            });
+            
+            // Agent validation (any selection)
+            agentSelect.addEventListener('change', function() {
+                if (this.value) {
+                    agentIcon.classList.remove('text-slate-400');
+                    agentIcon.classList.add('text-blue-600');
+                } else {
+                    agentIcon.classList.remove('text-blue-600');
+                    agentIcon.classList.add('text-slate-400');
+                }
+            });
+        }
+
+        document.getElementById('declinedForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             
-            // Get form elements
             const form = e.target;
             const submitBtn = document.getElementById('submitBtn');
             const statusDiv = document.getElementById('statusMessage');
             
-            // Validate agent is selected
-            const agentSelect = document.getElementById('agent');
-            if (agentSelect.value === '' || isLoadingAgents) {
-                showStatus('Please wait for agents to load or select an agent', 'error');
-                return;
-            }
-            
-            // Get form data
             const formData = {
                 phone: document.getElementById('phone').value.trim(),
                 state: document.getElementById('state').value,
                 match: document.getElementById('match').value.trim(),
                 reason: document.getElementById('reason').value.trim(),
-                agent: agentSelect.value
+                agent: document.getElementById('agent').value
             };
             
-            // Validate required fields
             if (!formData.phone || !formData.state || !formData.match || !formData.agent) {
-                showStatus('Please fill in all required fields', 'error');
+                showStatus('Please fill all required fields', 'error');
                 return;
             }
             
-            // Validate phone contains at least some digits
-            if (!/\d/.test(formData.phone)) {
-                showStatus('Phone number must contain numbers', 'error');
+            if (formData.phone.length !== 10) {
+                showStatus('Phone number must be 10 digits', 'error');
                 return;
             }
             
-            // Disable submit button
             submitBtn.disabled = true;
             submitBtn.textContent = 'Submitting...';
             submitBtn.classList.add('opacity-75');
             
             try {
-                // Send to Apps Script
                 const response = await fetch(SCRIPT_URL, {
                     method: 'POST',
-                    body: JSON.stringify(formData),
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
+                    body: JSON.stringify(formData)
                 });
                 
                 const result = await response.json();
                 
                 if (result.status === 'success') {
-                    // Show success message
                     showStatus('✅ Lead submitted successfully!', 'success');
-                    
-                    // Clear form (except state and agent)
                     document.getElementById('phone').value = '';
                     document.getElementById('match').value = '';
                     document.getElementById('reason').value = '';
-                    
-                    // Reset form focus
                     document.getElementById('phone').focus();
                     
-                    // Auto-hide success message after 3 seconds
+                    // Reset icons except state and agent
+                    document.getElementById('phoneIcon').classList.remove('text-blue-600');
+                    document.getElementById('phoneIcon').classList.add('text-slate-400');
+                    document.getElementById('matchIcon').classList.remove('text-blue-600');
+                    document.getElementById('matchIcon').classList.add('text-slate-400');
+                    
                     setTimeout(() => {
                         statusDiv.classList.add('hidden');
                     }, 3000);
-                    
                 } else {
-                    showStatus(`❌ Error: ${result.message || 'Submission failed'}`, 'error');
+                    showStatus(`❌ ${result.message || 'Submission failed'}`, 'error');
                 }
-                
             } catch (error) {
-                console.error('Submission error:', error);
                 showStatus('❌ Network error. Please try again.', 'error');
+                console.error('Submission error:', error);
             } finally {
-                // Re-enable submit button
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'Submit Declined Lead';
                 submitBtn.classList.remove('opacity-75');
             }
         });
 
-        // Show status message
         function showStatus(message, type) {
             const statusDiv = document.getElementById('statusMessage');
-            
-            // Set message and styling
             statusDiv.textContent = message;
-            statusDiv.className = 'text-center';
+            statusDiv.className = 'text-center mt-4 p-3 rounded-lg hidden';
             
             if (type === 'success') {
-                statusDiv.classList.add('text-emerald-600', 'font-medium');
-            } else if (type === 'error') {
-                statusDiv.classList.add('text-red-600', 'font-medium');
+                statusDiv.classList.add('bg-emerald-50', 'text-emerald-700', 'border', 'border-emerald-200');
+            } else {
+                statusDiv.classList.add('bg-red-50', 'text-red-700', 'border', 'border-red-200');
             }
             
-            // Show the message
             statusDiv.classList.remove('hidden');
         }
-
-        // Phone input validation - numeric only
-        document.getElementById('phone').addEventListener('input', function(e) {
-            // Remove non-numeric characters
-            this.value = this.value.replace(/\D/g, '');
-        });
     </script>
 </body>
 </html>
