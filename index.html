@@ -89,10 +89,10 @@
                     </div>
                 </div>
 
-                <!-- Row 3: Drop Reason (Full Width) -->
+                <!-- Row 3: Drop Reason (Now Mandatory) -->
                 <div>
                     <label for="reason" class="block text-sm font-medium text-slate-700 mb-2">
-                        Drop Reason (Optional)
+                        Drop Reason *
                     </label>
                     <div class="relative">
                         <div class="absolute left-3 top-3.5">
@@ -102,6 +102,7 @@
                             type="text" 
                             id="reason" 
                             name="reason"
+                            required
                             placeholder="Pickup Issue, Wrong Number, etc."
                             class="w-full pl-10 pr-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
                         >
@@ -206,11 +207,13 @@
             const phoneInput = document.getElementById('phone');
             const stateSelect = document.getElementById('state');
             const matchInput = document.getElementById('match');
+            const reasonInput = document.getElementById('reason');
             const agentSelect = document.getElementById('agent');
             
             const phoneIcon = document.getElementById('phoneIcon');
             const stateIcon = document.getElementById('stateIcon');
             const matchIcon = document.getElementById('matchIcon');
+            const reasonIcon = document.getElementById('reasonIcon');
             const agentIcon = document.getElementById('agentIcon');
             
             phoneInput.addEventListener('input', function() {
@@ -244,6 +247,16 @@
                 }
             });
             
+            reasonInput.addEventListener('input', function() {
+                if (this.value.trim()) {
+                    reasonIcon.classList.remove('text-slate-400');
+                    reasonIcon.classList.add('text-blue-600');
+                } else {
+                    reasonIcon.classList.remove('text-blue-600');
+                    reasonIcon.classList.add('text-slate-400');
+                }
+            });
+            
             agentSelect.addEventListener('change', function() {
                 if (this.value) {
                     agentIcon.classList.remove('text-slate-400');
@@ -270,13 +283,18 @@
                 agent: document.getElementById('agent').value
             };
             
-            if (!formData.phone || !formData.state || !formData.match || !formData.agent) {
+            if (!formData.phone || !formData.state || !formData.match || !formData.reason || !formData.agent) {
                 showStatus('Please fill all required fields', 'error');
                 return;
             }
             
             if (formData.phone.length !== 10) {
                 showStatus('Phone number must be 10 digits', 'error');
+                return;
+            }
+            
+            if (!formData.reason.trim()) {
+                showStatus('Drop reason is required', 'error');
                 return;
             }
             
@@ -304,6 +322,8 @@
                 document.getElementById('phoneIcon').classList.add('text-slate-400');
                 document.getElementById('matchIcon').classList.remove('text-blue-600');
                 document.getElementById('matchIcon').classList.add('text-slate-400');
+                document.getElementById('reasonIcon').classList.remove('text-blue-600');
+                document.getElementById('reasonIcon').classList.add('text-slate-400');
                 
                 setTimeout(() => {
                     statusDiv.classList.add('hidden');
