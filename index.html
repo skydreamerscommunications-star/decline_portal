@@ -22,51 +22,54 @@
 
         <div class="bg-white rounded-2xl shadow-lg border border-slate-200 p-8">
             <form id="declinedForm" class="space-y-6">
-                <!-- Phone Field with Icon -->
-                <div>
-                    <label for="phone" class="block text-sm font-medium text-slate-700 mb-2">
-                        Phone Number *
-                    </label>
-                    <div class="relative">
-                        <div class="absolute left-3 top-3.5">
-                            <i id="phoneIcon" class="fas fa-phone text-slate-400"></i>
+                <!-- Row 1: Phone & State -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Phone Field -->
+                    <div>
+                        <label for="phone" class="block text-sm font-medium text-slate-700 mb-2">
+                            Phone Number *
+                        </label>
+                        <div class="relative">
+                            <div class="absolute left-3 top-3.5">
+                                <i id="phoneIcon" class="fas fa-phone text-slate-400"></i>
+                            </div>
+                            <input 
+                                type="tel" 
+                                id="phone" 
+                                name="phone"
+                                required
+                                placeholder="1234567890"
+                                class="w-full pl-10 pr-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                            >
                         </div>
-                        <input 
-                            type="tel" 
-                            id="phone" 
-                            name="phone"
-                            required
-                            placeholder="1234567890"
-                            class="w-full pl-10 pr-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
-                        >
+                        <p class="mt-1 text-xs text-slate-500">10 digits required</p>
                     </div>
-                    <p class="mt-1 text-xs text-slate-500">10 digits required</p>
+
+                    <!-- State Field -->
+                    <div>
+                        <label for="state" class="block text-sm font-medium text-slate-700 mb-2">
+                            State *
+                        </label>
+                        <div class="relative">
+                            <div class="absolute left-3 top-3.5">
+                                <i id="stateIcon" class="fas fa-map-marker-alt text-slate-400"></i>
+                            </div>
+                            <select 
+                                id="state" 
+                                name="state"
+                                required
+                                class="w-full pl-10 pr-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition bg-white appearance-none"
+                            >
+                                <option value="" disabled selected>Select state</option>
+                            </select>
+                            <div class="absolute right-3 top-3.5 pointer-events-none">
+                                <i class="fas fa-chevron-down text-slate-400"></i>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- State Field with Icon -->
-                <div>
-                    <label for="state" class="block text-sm font-medium text-slate-700 mb-2">
-                        State *
-                    </label>
-                    <div class="relative">
-                        <div class="absolute left-3 top-3.5">
-                            <i id="stateIcon" class="fas fa-map-marker-alt text-slate-400"></i>
-                        </div>
-                        <select 
-                            id="state" 
-                            name="state"
-                            required
-                            class="w-full pl-10 pr-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition bg-white appearance-none"
-                        >
-                            <option value="" disabled selected>Select state</option>
-                        </select>
-                        <div class="absolute right-3 top-3.5 pointer-events-none">
-                            <i class="fas fa-chevron-down text-slate-400"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- DID Match Field with Icon -->
+                <!-- Row 2: DID Match (Full Width) -->
                 <div>
                     <label for="match" class="block text-sm font-medium text-slate-700 mb-2">
                         DID Match *
@@ -86,7 +89,7 @@
                     </div>
                 </div>
 
-                <!-- Reason Field with Icon -->
+                <!-- Row 3: Drop Reason (Full Width) -->
                 <div>
                     <label for="reason" class="block text-sm font-medium text-slate-700 mb-2">
                         Drop Reason (Optional)
@@ -105,7 +108,7 @@
                     </div>
                 </div>
 
-                <!-- Agent Field with Icon -->
+                <!-- Row 4: Agent (Full Width) -->
                 <div>
                     <label for="agent" class="block text-sm font-medium text-slate-700 mb-2">
                         Agent *
@@ -146,7 +149,7 @@
     </div>
 
     <script>
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyBEM6b42D73gn0RMKnxAdIFDs0jolqu9srh3qtFZLOV1WUoswGirPUBjBMfa2zlNGD/exec";
+        const SCRIPT_URL = "YOUR_APPS_SCRIPT_WEBAPP_URL_HERE";
         const STATES = [
             'AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA',
             'HI','ID','IL','IN','IA','KS','KY','LA','ME','MD',
